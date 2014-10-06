@@ -45,4 +45,10 @@ class HouseSpec extends ObjectBehavior
 
         $this->whereAmI()->shouldBe($location);
     }
+
+    function it_should_allow_entering_rooms()
+    {
+        $room = Room::named('kitchen');
+        $this->enterRoom($room);
+    }
 }

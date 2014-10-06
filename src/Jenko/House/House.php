@@ -57,4 +57,12 @@ final class House
     {
         return $this->currentLocation;
     }
+
+    /**
+     * @param Location $room
+     */
+    public function enterRoom(Location $room)
+    {
+        $this->currentLocation = $room;
+    }
 }
