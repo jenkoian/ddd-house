@@ -2,21 +2,8 @@
 
 namespace Jenko\House;
 
-final class Garden
+final class Garden extends Location
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @param string $name
-     */
-    private function __construct($name)
-    {
-        $this->name = $name;
-    }
-
     /**
      * @param string $name
      * @return Room
@@ -24,13 +11,5 @@ final class Garden
     public static function named($name)
     {
         return new Garden($name);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

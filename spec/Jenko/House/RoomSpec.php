@@ -15,6 +15,7 @@ class RoomSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Jenko\House\Room');
+        $this->shouldHaveType('Jenko\House\Location');
     }
 
     function it_should_be_created_with_a_name()

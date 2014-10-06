@@ -10,6 +10,11 @@ final class House
     private $locations;
 
     /**
+     * @var Location
+     */
+    private $currentLocation;
+
+    /**
      * @param array $locations
      */
     private function __construct(array $locations)
@@ -32,5 +37,24 @@ final class House
     public function getLocations()
     {
         return $this->locations;
+    }
+
+    /**
+     * @param Location $location
+     * @return $this
+     */
+    public function setLocation(Location $location)
+    {
+        $this->currentLocation = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Location
+     */
+    public function whereAmI()
+    {
+        return $this->currentLocation;
     }
 }
