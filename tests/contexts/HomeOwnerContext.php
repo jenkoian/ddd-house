@@ -132,22 +132,4 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
             return true;
         }
     }
-
-    /**
-     * @Then I should have room size and adjacent rooms
-     */
-    public function iShouldHaveRoomSizeAndAdjacentRooms()
-    {
-        $information = $this->house->whereAmI()->getInformation();
-        PHPUnit_Framework_Assert::assertArrayHasKey('dimensions', $information);
-        PHPUnit_Framework_Assert::assertArrayHasKey('exits', $information);
-    }
-
-    /**
-     * @Given I am in the hallway
-     */
-    public function iAmInTheHallway()
-    {
-        $this->iEnterTheRoom('hallway');
-    }
 }
