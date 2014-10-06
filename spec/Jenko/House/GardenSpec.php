@@ -15,7 +15,6 @@ class GardenSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Jenko\House\Garden');
-        $this->shouldHaveType('Jenko\House\Location');
     }
 
     function it_should_be_created_with_a_name()
@@ -23,5 +22,10 @@ class GardenSpec extends ObjectBehavior
         $garden = self::named('front garden');
         $garden->shouldHaveType('Jenko\House\Garden');
         $garden->getName()->shouldEqual('front garden');
+    }
+
+    function it_should_give_information()
+    {
+        $this->getInformation()->shouldBeArray();
     }
 }
