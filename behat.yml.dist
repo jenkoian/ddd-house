@@ -1,0 +1,9 @@
+default:
+    autoload: tests/contexts
+    suites:
+        home-owner-domain:
+            contexts:
+                - HomeOwnerContext
+#        home-owner-ui:
+#            contexts:
+#                - WebHomeOwnerContext
