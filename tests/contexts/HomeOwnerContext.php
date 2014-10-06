@@ -3,6 +3,9 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Jenko\House\Garden;
+use Jenko\House\House;
+use Jenko\House\Room;
 
 class HomeOwnerContext implements Context, SnippetAcceptingContext
 {
@@ -122,5 +125,23 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
         } catch (RoomDoesNotExistException $e) {
             return true;
         }
+    }
+
+    /**
+     * @Then I should have room size and adjacent rooms
+     */
+    public function iShouldHaveRoomSizeAndAdjacentRooms()
+    {
+        $information = $this->house->whereAmI()->getInformation();
+        PHPUnit_Framework_Assert::assertArrayHasKey('dimensions', $information);
+        PHPUnit_Framework_Assert::assertArrayHasKey('exits', $information);
+    }
+
+    /**
+     * @Given I am in the hallway
+     */
+    public function iAmInTheHallway()
+    {
+        $this->iEnterTheRoom('hallway');
     }
 }
