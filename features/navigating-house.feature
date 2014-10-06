@@ -2,7 +2,7 @@
 Feature: Navigating the house
 
   Scenario: Entering the house
-    Given I am outside of the house
+    Given I am in the "front garden"
     When I enter through the front door
     Then I should be in the "hallway"
 
