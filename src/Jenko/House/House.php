@@ -7,6 +7,14 @@ final class House
     private $location;
 
     /**
+     * When a new house is instantiated, ensure the location is reset.
+     */
+    public function __construct()
+    {
+        $this->resetLocation();
+    }
+
+    /**
      * Reset location to default
      */
     public function resetLocation()
