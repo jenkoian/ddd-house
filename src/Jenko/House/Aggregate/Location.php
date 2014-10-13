@@ -1,6 +1,6 @@
 <?php
 
-namespace Jenko\House;
+namespace Jenko\House\Aggregate;
 
 abstract class Location
 {

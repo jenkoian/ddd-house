@@ -1,6 +1,6 @@
 <?php
 
-namespace Jenko\House;
+namespace Jenko\House\Aggregate;
 
 final class Garden extends Location
 {

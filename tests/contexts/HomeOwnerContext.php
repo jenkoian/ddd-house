@@ -2,8 +2,8 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Jenko\House\House;
-use Jenko\House\Room;
+use Jenko\House\Aggregate\House;
+use Jenko\House\Aggregate\Room;
 
 /**
  * Defines application features from the specific context.
@@ -53,7 +53,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmInTheHallway()
     {
-        $this->house->setLocation(new Room('hallway'));
+        $this->house->enterRoom(new Room('hallway'));
     }
 
     /**
@@ -69,7 +69,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iShouldBeOutside()
     {
-        PHPUnit_Framework_Assert::assertInstanceOf('Jenko\\House\\Garden', $this->house->whereAmI());
+        PHPUnit_Framework_Assert::assertInstanceOf('Jenko\\House\\Aggregate\\Garden', $this->house->whereAmI());
         PHPUnit_Framework_Assert::assertEquals('front garden', $this->house->whereAmI());
     }
 }
