@@ -2,7 +2,7 @@
 
 namespace Jenko\HouseBundle\Controller;
 
-use Jenko\House\Location;
+use Jenko\House\Room;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +15,7 @@ class EnterRoomController
      */
     public function enterAction(Request $request)
     {
-        $location = new Location($request->get('location'));
+        $location = new Room($request->get('location'));
         return new Response($location);
     }
 }

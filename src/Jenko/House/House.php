@@ -4,6 +4,9 @@ namespace Jenko\House;
 
 final class House
 {
+    /**
+     * @var Location
+     */
     private $location;
 
     /**
@@ -19,7 +22,7 @@ final class House
      */
     public function resetLocation()
     {
-        $this->location = new Location();
+        $this->location = new Garden();
     }
 
     /**
@@ -35,7 +38,7 @@ final class House
      */
     public function enterFrontDoor()
     {
-        $this->setLocation(new Location('hallway'));
+        $this->setLocation(new Room('hallway'));
     }
 
     /**
@@ -47,7 +50,7 @@ final class House
     }
 
     /**
-     * @return mixed
+     * @return Location
      */
     public function whereAmI()
     {

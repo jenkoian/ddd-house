@@ -1,12 +1,9 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use Jenko\House\House;
-use Jenko\House\Location;
+use Jenko\House\Room;
 
 /**
  * Defines application features from the specific context.
@@ -56,7 +53,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmInTheHallway()
     {
-        $this->house->setLocation(new Location('hallway'));
+        $this->house->setLocation(new Room('hallway'));
     }
 
     /**
@@ -72,6 +69,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iShouldBeOutside()
     {
-        PHPUnit_Framework_Assert::assertEquals(Location::DEFAULT_LOCATION, $this->house->whereAmI());
+        PHPUnit_Framework_Assert::assertInstanceOf('Jenko\\House\\Garden', $this->house->whereAmI());
+        PHPUnit_Framework_Assert::assertEquals('front garden', $this->house->whereAmI());
     }
 }

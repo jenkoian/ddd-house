@@ -2,18 +2,19 @@
 
 namespace Jenko\House;
 
-final class Location
+abstract class Location
 {
-    const DEFAULT_LOCATION = 'outside';
-
+    /**
+     * @var string
+     */
     private $name;
 
     /**
      * @param string $name
      */
-    public function __construct($name = self::DEFAULT_LOCATION)
+    public function __construct($name = null)
     {
-        $this->name = $name;
+        $this->name = $name ? $name : $this->getDefaultName();
     }
 
     /**
@@ -31,4 +32,9 @@ final class Location
     {
         return (string) $this->name;
     }
+
+    /**
+     * @return string
+     */
+    abstract protected function getDefaultName();
 }
