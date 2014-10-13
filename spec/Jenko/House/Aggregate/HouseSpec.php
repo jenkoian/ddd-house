@@ -44,4 +44,10 @@ class HouseSpec extends ObjectBehavior
         $this->exitFrontDoor();
         $this->whereAmI()->getName()->shouldBe('front garden');
     }
+
+    function it_should_give_information_about_the_current_room()
+    {
+        $this->enterFrontDoor();
+        $this->whereAmI()->getInformation()->shouldBeArray();
+    }
 }

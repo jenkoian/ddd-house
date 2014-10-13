@@ -26,6 +26,20 @@ abstract class Location
     }
 
     /**
+     * @return array
+     */
+    public function getInformation()
+    {
+        $rooms = ['kitchen', 'living-room', 'dining-room', 'hallway'];
+        return [
+            'size' => '300 x 200',
+            'rooms' => [
+                $rooms[array_rand($rooms)]
+            ]
+        ];
+    }
+
+    /**
      * @return string
      */
     public function __toString()

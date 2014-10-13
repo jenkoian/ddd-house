@@ -39,11 +39,11 @@ class EnterRoomController
     {
         $command = new EnterRoomCommand();
         $command->room = $request->get('location');
-        $this->commandBus->execute($command);
+        $house = $this->commandBus->execute($command);
 
         return $this->templating->renderResponse(
             'JenkoHouseBundle::room.html.twig',
-            ['room' => $command->room]
+            ['currentRoom' => $house->whereAmI()]
         );
     }
 }

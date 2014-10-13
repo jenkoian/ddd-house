@@ -7,8 +7,14 @@ use Tabbi89\CommanderBundle\Command\CommandHandlerInterface as ThirdPartyCommand
 
 class CommanderEnterRoomHandlerAdapter implements CommandHandlerInterface, ThirdPartyCommandHandlerInterface
 {
+    /**
+     * @var CommandHandlerInterface
+     */
     private $handler;
 
+    /**
+     * @param CommandHandlerInterface $handler
+     */
     public function __construct(CommandHandlerInterface $handler)
     {
         $this->handler = $handler;
@@ -20,6 +26,6 @@ class CommanderEnterRoomHandlerAdapter implements CommandHandlerInterface, Third
      */
     public function handle($command)
     {
-        $this->handler->handle($command);
+        return $this->handler->handle($command);
     }
 }

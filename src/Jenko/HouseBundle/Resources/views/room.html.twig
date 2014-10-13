@@ -1,3 +1,9 @@
-<img src="{{ asset('bundles/jenkohouse/img/' ~ room ~ '.jpg') }}" />
+<img src="{{ asset('bundles/jenkohouse/img/' ~ currentRoom ~ '.jpg') }}" />
 
-<a href="{{ path('jenko_house_enter_room', {location: 'hallway'}) }}">Back to Hallway</a>
+<p>Room size: {{ currentRoom.information.size }}</p>
+
+{% for room in currentRoom.information.rooms %}
+    <p><a href="{{ path('jenko_house_enter_room', {location: room}) }}">Go to {{ room }}</a></p>
+{% endfor %}
+
+<p><a href="{{ path('jenko_house_outside') }}">Go back outside</a></p>

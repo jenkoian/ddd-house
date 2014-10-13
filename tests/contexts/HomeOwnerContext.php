@@ -72,4 +72,22 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
         PHPUnit_Framework_Assert::assertInstanceOf('Jenko\\House\\Aggregate\\Garden', $this->house->whereAmI());
         PHPUnit_Framework_Assert::assertEquals('front garden', $this->house->whereAmI());
     }
+
+    /**
+     * @When I request room info
+     */
+    public function iRequestRoomInfo()
+    {
+        $this->house->whereAmI()->getInformation();
+    }
+
+    /**
+     * @Then I should have room size and adjacent rooms
+     */
+    public function iShouldHaveRoomSizeAndAdjacentRooms()
+    {
+        $information = $this->house->whereAmI()->getInformation();
+        PHPUnit_Framework_Assert::assertArrayHasKey('size', $information);
+        PHPUnit_Framework_Assert::assertArrayHasKey('rooms', $information);
+    }
 }

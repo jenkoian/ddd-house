@@ -24,5 +24,7 @@ class EnterRoomHandler implements CommandHandlerInterface
     {
         $this->house->enterRoom($command->room);
         $this->dispatcher->dispatch($this->house->releaseEvents());
+
+        return $this->house;
     }
 }
