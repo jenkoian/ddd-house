@@ -6,12 +6,14 @@ use Jenko\House\Aggregate\House;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class OutsideCommand extends ContainerAwareCommand
 {
+    /**
+     * @var House
+     */
     private $house;
 
     public function __construct()
@@ -25,10 +27,15 @@ class OutsideCommand extends ContainerAwareCommand
         $this
             ->setName('jenko:house:navigate')
             ->setDescription('Navigate the house')
-//            ->addOption('location', null, InputOption::VALUE_OPTIONAL, 'If set, the house will start from this room')
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $helper = $this->getHelper('question');

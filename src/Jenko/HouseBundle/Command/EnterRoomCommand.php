@@ -12,6 +12,9 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class EnterRoomCommand extends ContainerAwareCommand
 {
+    /**
+     * @var House
+     */
     private $house;
 
     public function __construct()
@@ -29,6 +32,12 @@ class EnterRoomCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $room = $input->getOption('location');
