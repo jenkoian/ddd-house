@@ -33,9 +33,14 @@ class EnterRoomCommand extends ContainerAwareCommand
     {
         $room = $input->getOption('location');
         $this->house->enterRoom($room);
+
+        $command = new EnterRoomCommand();
+        $command->room = $input->getOption('location');
+        $house = $this->getContainer()->get('tabbi89_commander.command.default_command_bus')->execute($command);
+
         $output->writeln('You are in: ' . $room);
 
-        $info = $this->house->whereAmI()->getInformation();
+        $info = $house->whereAmI()->getInformation();
 
         $table = $this->getHelper('table');
         $table
