@@ -41,10 +41,9 @@ class EnterRoomCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $room = $input->getOption('location');
-        $this->house->enterRoom($room);
 
         $command = new EnterRoomCommand();
-        $command->room = $input->getOption('location');
+        $command->room = $room;
         $house = $this->getContainer()->get('tabbi89_commander.command.default_command_bus')->execute($command);
 
         $output->writeln('You are in: ' . $room);

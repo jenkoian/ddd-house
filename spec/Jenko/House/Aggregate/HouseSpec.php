@@ -11,11 +11,15 @@ class HouseSpec extends ObjectBehavior
 {
     function let()
     {
-        $locations =  [
-            new Garden(),
-            new Room(),
-            new Room('kitchen')
-        ];
+        // TODO: extract this out to re-usable method
+        $kitchen = new Room('kitchen');
+        $hallway = new Room('hallway');
+        $garden = new Garden('front garden');
+        $kitchen->setInformation(['size' => '300 x 300', 'rooms' => []]);
+        $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
+        $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
+
+        $locations =  [$kitchen, $hallway, $garden];
 
         $this->beConstructedThrough('buildHouse', [$locations]);
     }
@@ -65,11 +69,14 @@ class HouseSpec extends ObjectBehavior
 
     function it_has_locations()
     {
-        $locations =  [
-            new Garden(),
-            new Room(),
-            new Room('kitchen')
-        ];
+        $kitchen = new Room('kitchen');
+        $hallway = new Room('hallway');
+        $garden = new Garden('front garden');
+        $kitchen->setInformation(['size' => '300 x 300', 'rooms' => []]);
+        $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
+        $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
+
+        $locations =  [$kitchen, $hallway, $garden];
 
         $this->getLocations()->shouldBeArray();
         $this->getLocations()->shouldHaveCount(count($locations));

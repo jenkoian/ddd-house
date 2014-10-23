@@ -10,11 +10,18 @@ abstract class Location
     private $name;
 
     /**
-     * @param string $name
+     * @var array
      */
-    public function __construct($name = null)
+    private $information = [];
+
+    /**
+     * @param string $name
+     * @param array $information
+     */
+    public function __construct($name = null, array $information = [])
     {
         $this->name = $name ? $name : $this->getDefaultName();
+        $this->information = $information ? $information : $this->getDefaultInformation();
     }
 
     /**
@@ -26,17 +33,28 @@ abstract class Location
     }
 
     /**
+     * @param array $information
+     */
+    public function setInformation(array $information)
+    {
+        $this->information = $information;
+    }
+
+    /**
+     * @param $location
+     * @return bool
+     */
+    public function equals(Location $location)
+    {
+        return $location->getName() === $this->getName();
+    }
+
+    /**
      * @return array
      */
     public function getInformation()
     {
-        $rooms = ['kitchen', 'living-room', 'dining-room', 'hallway'];
-        return [
-            'size' => '300 x 200',
-            'rooms' => [
-                $rooms[array_rand($rooms)]
-            ]
-        ];
+        return $this->information;
     }
 
     /**
@@ -51,4 +69,9 @@ abstract class Location
      * @return string
      */
     abstract protected function getDefaultName();
+
+    /**
+     * @return array
+     */
+    abstract protected function getDefaultInformation();
 }

@@ -41,7 +41,7 @@ final class House
             $locations = static::getDefaultLocations();
         }
 
-        return new House($locations);
+        return new self($locations);
     }
 
     /**
@@ -49,7 +49,13 @@ final class House
      */
     public function resetCurrentLocation()
     {
-        $this->currentLocation = new Garden();
+        foreach ($this->locations as $location) {
+            if ($location instanceof Garden) {
+                return $this->currentLocation = $location;
+            }
+        }
+
+        return $this->currentLocation = $this->locations[0];
     }
 
     /**
@@ -80,12 +86,33 @@ final class House
             $room = new Room($room);
         }
 
-        if (!in_array($room, $this->locations)) {
+        if (!$this->containsLocation($room)) {
             throw new RoomDoesNotExistException('Sorry, that room does not exist');
         }
 
-        $this->currentLocation = $room;
-        $this->raiseEvent(new RoomEnteredEvent($room->getName()));
+        foreach ($this->locations as $location) {
+            if ($location->equals($room)) {
+                $this->currentLocation = $location;
+                $this->raiseEvent(new RoomEnteredEvent($location->getName()));
+                return;
+            }
+        }
+    }
+
+    /**
+     * @param Location $room
+     * @return bool
+     */
+    private function containsLocation(Location $room)
+    {
+        foreach ($this->locations as $location)
+        {
+            if ($location->equals($room)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -112,8 +139,8 @@ final class House
     public static function getDefaultLocations()
     {
         return [
-            new Garden(),
-            new Room()
+            new Garden('front garden'),
+            new Room('hallway')
         ];
     }
 }

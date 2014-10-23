@@ -11,4 +11,15 @@ final class Room extends Location
     {
         return 'hallway';
     }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultInformation()
+    {
+        return [
+            'size' => '300 x 200',
+            'rooms' => []
+        ];
+    }
 }
