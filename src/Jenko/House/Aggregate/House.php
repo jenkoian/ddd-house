@@ -4,6 +4,7 @@ namespace Jenko\House\Aggregate;
 
 use Jenko\House\Adapter\CommanderEventGeneratorAdapter;
 use Jenko\House\Event\RoomEnteredEvent;
+use Jenko\House\Exception\RoomDoesNotExistException;
 
 final class House
 {
@@ -12,22 +13,43 @@ final class House
     /**
      * @var Location
      */
-    private $location;
+    private $currentLocation;
+
+    /**
+     * @var array
+     */
+    private $locations;
 
     /**
      * When a new house is instantiated, ensure the location is reset.
+     *
+     * @param array $locations
      */
-    public function __construct()
+    private function __construct(array $locations)
     {
-        $this->resetLocation();
+        $this->locations = $locations;
+        $this->resetCurrentLocation();
+    }
+
+    /**
+     * @param array $locations
+     * @return House
+     */
+    public static function buildHouse(array $locations = array())
+    {
+        if (empty($locations)) {
+            $locations = static::getDefaultLocations();
+        }
+
+        return new House($locations);
     }
 
     /**
      * Reset location to default
      */
-    public function resetLocation()
+    public function resetCurrentLocation()
     {
-        $this->location = new Garden();
+        $this->currentLocation = new Garden();
     }
 
     /**
@@ -43,13 +65,14 @@ final class House
      */
     public function exitFrontDoor()
     {
-        $this->resetLocation();
+        $this->resetCurrentLocation();
     }
 
     /**
      * Convenience method for entering a room, basically a wrapper for setLocation. Pass it a room object or a room name
      *
      * @param mixed $room
+     * @throws RoomDoesNotExistException
      */
     public function enterRoom($room)
     {
@@ -57,7 +80,11 @@ final class House
             $room = new Room($room);
         }
 
-        $this->location = $room;
+        if (!in_array($room, $this->locations)) {
+            throw new RoomDoesNotExistException('Sorry, that room does not exist');
+        }
+
+        $this->currentLocation = $room;
         $this->raiseEvent(new RoomEnteredEvent($room->getName()));
     }
 
@@ -66,6 +93,27 @@ final class House
      */
     public function whereAmI()
     {
-        return $this->location;
+        return $this->currentLocation;
+    }
+
+    /**
+     * @return Location[]
+     */
+    public function getLocations()
+    {
+        return $this->locations;
+    }
+
+    /**
+     * If no locations are set, default to a garden and a hallway. Every house must have a garden and a hall.
+     *
+     * @return Location[]
+     */
+    public static function getDefaultLocations()
+    {
+        return [
+            new Garden(),
+            new Room()
+        ];
     }
 }

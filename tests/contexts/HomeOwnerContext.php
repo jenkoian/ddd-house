@@ -2,6 +2,8 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\TableNode;
+use Jenko\House\Aggregate\Garden;
 use Jenko\House\Aggregate\House;
 use Jenko\House\Aggregate\Room;
 
@@ -21,7 +23,27 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function __construct()
     {
-        $this->house = new House();
+        $this->house = House::buildHouse();
+    }
+
+    /**
+     * @Given there are the following locations in the house
+     */
+    public function thereAreTheFollowingLocationsInTheHouse(TableNode $table)
+    {
+        $locations = [];
+
+        foreach ($table->getHash() as $data) {
+            if ('garden' === $data['type']) {
+                $location = new Garden($data['name']);
+            } else {
+                $location = new Room($data['name']);
+            }
+
+            $locations[] = $location;
+        }
+
+        $this->house = House::buildHouse($locations);
     }
 
     /**
@@ -29,7 +51,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmOutsideOfTheHouse()
     {
-        $this->house->resetLocation();
+        $this->house->resetCurrentLocation();
     }
 
     /**
@@ -46,14 +68,6 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     public function iShouldBeInTheHallway()
     {
         PHPUnit_Framework_Assert::assertEquals('hallway', $this->house->whereAmI());
-    }
-
-    /**
-     * @Given I am in the hallway
-     */
-    public function iAmInTheHallway()
-    {
-        $this->house->enterRoom(new Room('hallway'));
     }
 
     /**
@@ -89,5 +103,42 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
         $information = $this->house->whereAmI()->getInformation();
         PHPUnit_Framework_Assert::assertArrayHasKey('size', $information);
         PHPUnit_Framework_Assert::assertArrayHasKey('rooms', $information);
+    }
+
+    /**
+     * @Given I am in the hallway
+     */
+    public function iAmInTheHallway()
+    {
+        $this->iEnterTheRoom('hallway');
+    }
+
+    /**
+     * @When I enter the :roomName room
+     */
+    public function iEnterTheRoom($roomName)
+    {
+        $room = new Room($roomName);
+        $this->house->enterRoom($room);
+    }
+
+    /**
+     * @Then I should not be able to enter the :roomName room
+     */
+    public function iShouldNotBeAbleToEnterTheRoom($roomName)
+    {
+        try {
+            $this->iEnterTheRoom($roomName);
+        } catch (\Jenko\House\Exception\RoomDoesNotExistException $e) {
+            return true;
+        }
+    }
+
+    /**
+     * @Then I should be able to enter the :roomName room
+     */
+    public function iShouldBeAbleToEnterTheRoom($roomName)
+    {
+        $this->iEnterTheRoom($roomName);
     }
 }

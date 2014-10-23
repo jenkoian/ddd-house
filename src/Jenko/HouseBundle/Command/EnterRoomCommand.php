@@ -20,7 +20,7 @@ class EnterRoomCommand extends ContainerAwareCommand
     public function __construct()
     {
         parent::__construct();
-        $this->house = new House();
+        $this->house = House::buildHouse();
     }
 
     protected function configure()
