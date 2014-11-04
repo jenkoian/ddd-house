@@ -1,9 +1,19 @@
 default:
     autoload: tests/contexts
     suites:
-        home-owner-domain:
+        home-owner:
             contexts:
                 - HomeOwnerContext
+            filters:
+                tags: "@home-owner"
+        potential-buyer:
+            contexts:
+                - PotentialBuyerContext
+            filters:
+                tags: "@potential-buyer"
 #        home-owner-ui:
 #            contexts:
 #                - WebHomeOwnerContext
+#        potential-buyer-ui:
+#            contexts:
+#                - PotentialBuyerContext

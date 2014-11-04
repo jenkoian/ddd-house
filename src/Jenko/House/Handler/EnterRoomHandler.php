@@ -16,13 +16,15 @@ class EnterRoomHandler implements CommandHandlerInterface
     {
         $this->dispatcher = $dispatcher;
         $kitchen = new Room('kitchen');
+        $lounge = new Room('living-room');
         $hallway = new Room('hallway');
         $garden = new Garden('front garden');
-        $kitchen->setInformation(['size' => '300 x 300', 'rooms' => []]);
-        $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
-        $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
+        $kitchen->setInformation(['size' => '300 x 100', 'rooms' => [$hallway]]);
+        $lounge->setInformation(['size' => '400 x 300', 'rooms' => [$kitchen]]);
+        $hallway->setInformation(['size' => '300 x 800', 'rooms' => [$lounge]]);
+        $garden->setInformation(['size' => '600 x 80', 'rooms' => [$hallway]]);
 
-        $locations =  [$kitchen, $hallway, $garden];
+        $locations =  [$lounge, $kitchen, $hallway, $garden];
         $this->house = House::buildHouse($locations);
     }
 

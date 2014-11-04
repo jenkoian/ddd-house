@@ -11,7 +11,11 @@ class HouseSpec extends ObjectBehavior
 {
     function let()
     {
-        // TODO: extract this out to re-usable method
+        $this->beConstructedThrough('buildHouse', [$this->createLocations()]);
+    }
+
+    function createLocations()
+    {
         $kitchen = new Room('kitchen');
         $hallway = new Room('hallway');
         $garden = new Garden('front garden');
@@ -19,9 +23,7 @@ class HouseSpec extends ObjectBehavior
         $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
         $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
 
-        $locations =  [$kitchen, $hallway, $garden];
-
-        $this->beConstructedThrough('buildHouse', [$locations]);
+        return  [$kitchen, $hallway, $garden];
     }
 
     function it_is_initializable()
@@ -46,10 +48,10 @@ class HouseSpec extends ObjectBehavior
 
     function it_should_be_possible_to_enter_a_room()
     {
-        $room = new Room('kitchen');
+        $room = new Room('kitchen', ['size' => '300 x 300', 'rooms' => []]);
 
         $this->enterRoom($room);
-        $this->whereAmI()->shouldBe($room);
+        $this->whereAmI()->equals($room)->shouldBe(true);
     }
 
     function it_should_change_location_on_exiting_the_front_door()
@@ -69,14 +71,7 @@ class HouseSpec extends ObjectBehavior
 
     function it_has_locations()
     {
-        $kitchen = new Room('kitchen');
-        $hallway = new Room('hallway');
-        $garden = new Garden('front garden');
-        $kitchen->setInformation(['size' => '300 x 300', 'rooms' => []]);
-        $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
-        $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
-
-        $locations =  [$kitchen, $hallway, $garden];
+        $locations =  $this->createLocations();
 
         $this->getLocations()->shouldBeArray();
         $this->getLocations()->shouldHaveCount(count($locations));
