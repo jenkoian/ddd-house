@@ -2,6 +2,7 @@
 
 namespace spec\Jenko\House\Aggregate;
 
+use Jenko\House\Aggregate\Dimensions;
 use Jenko\House\Aggregate\Garden;
 use Jenko\House\Aggregate\Room;
 use PhpSpec\ObjectBehavior;
@@ -16,12 +17,12 @@ class HouseSpec extends ObjectBehavior
 
     function createLocations()
     {
-        $kitchen = new Room('kitchen');
-        $hallway = new Room('hallway');
-        $garden = new Garden('front garden');
-        $kitchen->setInformation(['size' => '300 x 300', 'rooms' => []]);
-        $hallway->setInformation(['size' => '300 x 300', 'rooms' => [$kitchen]]);
-        $garden->setInformation(['size' => '300 x 300', 'rooms' => [$hallway]]);
+        $kitchen = new Room('kitchen', new Dimensions(300,300));
+        $hallway = new Room('hallway', new Dimensions(300,300));
+        $garden = new Garden('front garden', new Dimensions(300,300));
+        $kitchen->setExits([]);
+        $hallway->setExits([$kitchen]);
+        $garden->setExits([$hallway]);
 
         return  [$kitchen, $hallway, $garden];
     }
@@ -48,7 +49,7 @@ class HouseSpec extends ObjectBehavior
 
     function it_should_be_possible_to_enter_a_room()
     {
-        $room = new Room('kitchen', ['size' => '300 x 300', 'rooms' => []]);
+        $room = new Room('kitchen', new Dimensions(300, 300), []);
 
         $this->enterRoom($room);
         $this->whereAmI()->equals($room)->shouldBe(true);
@@ -56,7 +57,7 @@ class HouseSpec extends ObjectBehavior
 
     function it_should_change_location_on_exiting_the_front_door()
     {
-        $room = new Room('hallway');
+        $room = new Room('hallway', new Dimensions(300, 300));
         $this->enterRoom($room);
 
         $this->exitFrontDoor();
@@ -80,7 +81,7 @@ class HouseSpec extends ObjectBehavior
 
     function it_should_throw_exception_if_attempting_to_enter_invalid_room()
     {
-        $madeUpRoom = new Room('totally made up');
+        $madeUpRoom = new Room('totally made up', new Dimensions(1,1));
         $this->shouldThrow('\Jenko\House\Exception\RoomDoesNotExistException')->during('enterRoom', [$madeUpRoom]);
     }
 }

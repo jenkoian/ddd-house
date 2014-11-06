@@ -22,10 +22,10 @@ Feature: Home owner navigating the house
 
   Scenario: Enter a room that does exist
     Given there are the following locations in the house
-      | name          | type   |
-      | front garden  | garden |
-      | hallway       | room   |
-      | living room   | room   |
-      | kitchen       | room   |
+      | name          | type   | width | height |
+      | front garden  | garden | 300   | 300    |
+      | hallway       | room   | 300   | 300    |
+      | living room   | room   | 300   | 300    |
+      | kitchen       | room   | 300   | 300    |
     And I am in the hallway
     Then I should be able to enter the "living room" room

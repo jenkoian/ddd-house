@@ -3,6 +3,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Jenko\House\Aggregate\Dimensions;
 use Jenko\House\Aggregate\Garden;
 use Jenko\House\Aggregate\House;
 use Jenko\House\Aggregate\Room;
@@ -23,7 +24,17 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function __construct()
     {
-        $this->house = House::buildHouse();
+        $kitchen = new Room('kitchen', new Dimensions(300, 100));
+        $lounge = new Room('living-room', new Dimensions(400, 300));
+        $hallway = new Room('hallway', new Dimensions(300, 800));
+        $garden = new Garden('front garden', new Dimensions(600,80));
+        $kitchen->setExits([$hallway]);
+        $lounge->setExits([$kitchen]);
+        $hallway->setExits([$lounge]);
+        $garden->setExits([$hallway]);
+
+        $locations =  [$lounge, $kitchen, $hallway, $garden];
+        $this->house = House::buildHouse($locations);
     }
 
     /**
@@ -35,9 +46,9 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
 
         foreach ($table->getHash() as $data) {
             if ('garden' === $data['type']) {
-                $location = new Garden($data['name']);
+                $location = new Garden($data['name'], new Dimensions($data['width'], $data['height']));
             } else {
-                $location = new Room($data['name']);
+                $location = new Room($data['name'], new Dimensions($data['width'], $data['height']));
             }
 
             $locations[] = $location;
@@ -101,8 +112,8 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     public function iShouldHaveRoomSizeAndAdjacentRooms()
     {
         $information = $this->house->whereAmI()->getInformation();
-        PHPUnit_Framework_Assert::assertArrayHasKey('size', $information);
-        PHPUnit_Framework_Assert::assertArrayHasKey('rooms', $information);
+        PHPUnit_Framework_Assert::assertArrayHasKey('dimensions', $information);
+        PHPUnit_Framework_Assert::assertArrayHasKey('exits', $information);
     }
 
     /**
@@ -118,8 +129,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iEnterTheRoom($roomName)
     {
-        $room = new Room($roomName);
-        $this->house->enterRoom($room);
+        $this->house->enterRoom($roomName);
     }
 
     /**

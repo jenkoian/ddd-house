@@ -10,18 +10,25 @@ abstract class Location
     private $name;
 
     /**
+     * @var Dimensions
+     */
+    private $dimensions;
+
+    /**
      * @var array
      */
-    private $information = [];
+    private $exits = [];
 
     /**
      * @param string $name
-     * @param array $information
+     * @param Dimensions $dimensions
+     * @param array $exits
      */
-    public function __construct($name = null, array $information = [])
+    public function __construct($name, Dimensions $dimensions, array $exits = [])
     {
-        $this->name = $name ? $name : $this->getDefaultName();
-        $this->information = $information ? $information : $this->getDefaultInformation();
+        $this->name = $name;
+        $this->dimensions = $dimensions;
+        $this->exits = $exits;
     }
 
     /**
@@ -33,11 +40,11 @@ abstract class Location
     }
 
     /**
-     * @param array $information
+     * @param array $exits
      */
-    public function setInformation(array $information)
+    public function setExits(array $exits)
     {
-        $this->information = $information;
+        $this->exits = $exits;
     }
 
     /**
@@ -52,9 +59,28 @@ abstract class Location
     /**
      * @return array
      */
+    public function getExits()
+    {
+        return $this->exits;
+    }
+
+    /**
+     * @return Dimensions
+     */
+    public function getDimensions()
+    {
+        return $this->dimensions;
+    }
+
+    /**
+     * @return array
+     */
     public function getInformation()
     {
-        return $this->information;
+        return [
+            'dimensions' => (string) $this->getDimensions(),
+            'exits' => $this->getExits()
+        ];
     }
 
     /**
@@ -64,14 +90,4 @@ abstract class Location
     {
         return (string) $this->name;
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function getDefaultName();
-
-    /**
-     * @return array
-     */
-    abstract protected function getDefaultInformation();
 }

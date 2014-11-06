@@ -2,6 +2,7 @@
 
 namespace Jenko\House\Handler;
 
+use Jenko\House\Aggregate\Dimensions;
 use Jenko\House\Aggregate\Garden;
 use Jenko\House\Aggregate\House;
 use Jenko\House\Aggregate\Room;
@@ -15,14 +16,14 @@ class EnterRoomHandler implements CommandHandlerInterface
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
-        $kitchen = new Room('kitchen');
-        $lounge = new Room('living-room');
-        $hallway = new Room('hallway');
-        $garden = new Garden('front garden');
-        $kitchen->setInformation(['size' => '300 x 100', 'rooms' => [$hallway]]);
-        $lounge->setInformation(['size' => '400 x 300', 'rooms' => [$kitchen]]);
-        $hallway->setInformation(['size' => '300 x 800', 'rooms' => [$lounge]]);
-        $garden->setInformation(['size' => '600 x 80', 'rooms' => [$hallway]]);
+        $kitchen = new Room('kitchen', new Dimensions(300, 100));
+        $lounge = new Room('living-room', new Dimensions(400, 300));
+        $hallway = new Room('hallway', new Dimensions(300, 800));
+        $garden = new Garden('front garden', new Dimensions(600,80));
+        $kitchen->setExits([$hallway]);
+        $lounge->setExits([$kitchen]);
+        $hallway->setExits([$lounge]);
+        $garden->setExits([$hallway]);
 
         $locations =  [$lounge, $kitchen, $hallway, $garden];
         $this->house = House::buildHouse($locations);

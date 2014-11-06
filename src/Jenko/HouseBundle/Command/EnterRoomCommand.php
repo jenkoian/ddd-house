@@ -2,7 +2,10 @@
 
 namespace Jenko\HouseBundle\Command;
 
+use Jenko\House\Aggregate\Dimensions;
+use Jenko\House\Aggregate\Garden;
 use Jenko\House\Aggregate\House;
+use Jenko\House\Aggregate\Room;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +23,17 @@ class EnterRoomCommand extends ContainerAwareCommand
     public function __construct()
     {
         parent::__construct();
-        $this->house = House::buildHouse();
+        $kitchen = new Room('kitchen', new Dimensions(300, 100));
+        $lounge = new Room('living-room', new Dimensions(400, 300));
+        $hallway = new Room('hallway', new Dimensions(300, 800));
+        $garden = new Garden('front garden', new Dimensions(600,80));
+        $kitchen->setExits([$hallway]);
+        $lounge->setExits([$kitchen]);
+        $hallway->setExits([$lounge]);
+        $garden->setExits([$hallway]);
+
+        $locations =  [$lounge, $kitchen, $hallway, $garden];
+        $this->house = House::buildHouse($locations);
     }
 
     protected function configure()

@@ -35,12 +35,8 @@ final class House
      * @param array $locations
      * @return House
      */
-    public static function buildHouse(array $locations = array())
+    public static function buildHouse(array $locations)
     {
-        if (empty($locations)) {
-            $locations = static::getDefaultLocations();
-        }
-
         return new self($locations);
     }
 
@@ -83,7 +79,7 @@ final class House
     public function enterRoom($room)
     {
         if (!($room instanceof Room)) {
-            $room = new Room($room);
+            $room = new Room($room, new Dimensions(1,1), []);
         }
 
         if (!$this->containsLocation($room)) {
@@ -129,18 +125,5 @@ final class House
     public function getLocations()
     {
         return $this->locations;
-    }
-
-    /**
-     * If no locations are set, default to a garden and a hallway. Every house must have a garden and a hall.
-     *
-     * @return Location[]
-     */
-    public static function getDefaultLocations()
-    {
-        return [
-            new Garden('front garden'),
-            new Room('hallway')
-        ];
     }
 }
