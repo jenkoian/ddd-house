@@ -8,6 +8,7 @@ default:
                 tags: "@home-owner"
         potential-buyer:
             contexts:
+                - HomeOwnerContext
                 - PotentialBuyerContext
             filters:
                 tags: "@potential-buyer"
@@ -16,4 +17,5 @@ default:
 #                - WebHomeOwnerContext
 #        potential-buyer-ui:
 #            contexts:
+#                - WebHomeOwnerContext
 #                - PotentialBuyerContext

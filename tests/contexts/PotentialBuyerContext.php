@@ -1,9 +1,12 @@
 <?php
 
+use Behat\Behat\Context\Context;
+use Behat\Behat\Context\SnippetAcceptingContext;
+
 /**
  * Defines application features from the specific context.
  */
-class PotentialBuyerContext extends HomeOwnerContext
+class PotentialBuyerContext implements Context, SnippetAcceptingContext
 {
 
 }
