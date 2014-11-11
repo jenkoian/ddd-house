@@ -69,4 +69,20 @@ final class House
 
         $this->currentLocation = $room;
     }
+
+    /**
+     * @param Location|string $room
+     */
+    public function exitRoom($room)
+    {
+        if (!$room instanceof Location && is_string($room)) {
+            if (false !== strpos('garden', $room)) {
+                $room = Garden::named($room);
+            } else{
+                $room = Room::named($room);
+            }
+        }
+
+        $this->currentLocation = $room;
+    }
 }

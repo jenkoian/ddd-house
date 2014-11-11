@@ -24,4 +24,9 @@ class GardenSpec extends ObjectBehavior
         $garden->shouldHaveType('Jenko\House\Garden');
         $garden->getName()->shouldEqual('front garden');
     }
+
+    function it_should_give_information()
+    {
+        $this->getInformation()->shouldBeArray();
+    }
 }

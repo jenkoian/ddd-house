@@ -24,4 +24,9 @@ abstract class Location
     {
         return $this->name;
     }
+
+    public function getInformation()
+    {
+        return ['dimensions' => '', 'exits' => ''];
+    }
 }

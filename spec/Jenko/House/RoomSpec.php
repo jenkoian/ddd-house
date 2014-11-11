@@ -24,4 +24,9 @@ class RoomSpec extends ObjectBehavior
         $garden->shouldHaveType('Jenko\House\Room');
         $garden->getName()->shouldEqual('living room');
     }
+
+    function it_should_give_an_array_of_information()
+    {
+        $this->getInformation()->shouldBeArray();
+    }
 }
