@@ -27,6 +27,12 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmInThe($location)
     {
+        if (false !== strpos('garden', $location)) {
+            $location = Room::named($location);
+        } else {
+            $location = Garden::named($location);
+        }
+
         $this->house->setLocation($location);
     }
 
