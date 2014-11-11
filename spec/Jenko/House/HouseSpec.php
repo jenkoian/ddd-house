@@ -59,6 +59,12 @@ class HouseSpec extends ObjectBehavior
     function it_should_allow_exiting_rooms()
     {
         $this->enterRoom('hallway');
-        $this->exitRoom('garden');
+        $this->exitRoom('front garden');
+    }
+
+    function it_should_throw_exception_if_attempting_to_enter_invalid_room()
+    {
+        $madeUpRoom = Room::named('made up room');
+        $this->shouldThrow('\Jenko\House\Exception\LocationDoesNotExistException')->during('enterRoom', [$madeUpRoom]);
     }
 }

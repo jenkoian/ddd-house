@@ -7,6 +7,7 @@ use Jenko\House\Dimensions;
 use Jenko\House\Garden;
 use Jenko\House\House;
 use Jenko\House\Room;
+use Jenko\House\Exception\LocationDoesNotExistException;
 
 class HomeOwnerContext implements Context, SnippetAcceptingContext
 {
@@ -28,7 +29,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmInThe($location)
     {
-        if (false !== strpos('garden', $location)) {
+        if (false !== strpos($location, 'garden')) {
             $location = Room::named($location);
         } else {
             $location = Garden::named($location);
@@ -118,8 +119,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iEnterTheRoom($roomName)
     {
-        $room = Room::named($roomName);
-        $this->house->enterRoom($room);
+        $this->house->enterRoom($roomName);
     }
 
     /**
@@ -129,7 +129,8 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     {
         try {
             $this->iEnterTheRoom($roomName);
-        } catch (RoomDoesNotExistException $e) {
+            throw new \RuntimeException();
+        } catch (LocationDoesNotExistException $e) {
             return true;
         }
     }
