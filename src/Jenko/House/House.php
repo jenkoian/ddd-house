@@ -59,10 +59,14 @@ final class House
     }
 
     /**
-     * @param Location $room
+     * @param Room|string $room
      */
-    public function enterRoom(Location $room)
+    public function enterRoom($room)
     {
+        if (!$room instanceof Room && is_string($room)) {
+            $room = Room::named($room);
+        }
+
         $this->currentLocation = $room;
     }
 }

@@ -50,5 +50,9 @@ class HouseSpec extends ObjectBehavior
     {
         $room = Room::named('kitchen');
         $this->enterRoom($room);
+        $this->whereAmI()->shouldBe($room);
+
+        $this->enterRoom('living room');
+        $this->whereAmI()->getName()->shouldBe('living room');
     }
 }
