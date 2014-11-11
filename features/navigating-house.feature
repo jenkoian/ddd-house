@@ -9,16 +9,12 @@ Feature: Home owner navigating the house
   Scenario: Getting room info
     Given I am in the "hallway"
     When I request room info
-    Then I should have room size and adjacent rooms
+    Then I should have dimensions and exits
 
   Scenario: Leaving the house
     Given I am in the "hallway"
     When I leave through the front door
     Then I should be in the "front garden"
-
-  Scenario: Entering a room that doesn't exist
-    Given I am in the "hallway"
-    Then I should not be able to enter the "made up" room
 
   Scenario: Enter a room that does exist
     Given there are the following locations in the house
@@ -29,3 +25,7 @@ Feature: Home owner navigating the house
       | kitchen       | room   | 300   | 300    |
     And I am in the "hallway"
     Then I should be able to enter the "living room" room
+
+  Scenario: Entering a room that doesn't exist
+    Given I am in the "hallway"
+    Then I should not be able to enter the "made up" room
