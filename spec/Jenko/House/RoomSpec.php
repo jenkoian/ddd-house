@@ -38,4 +38,14 @@ class RoomSpec extends ObjectBehavior
 
         $this->getDimensions()->shouldEqual($dimensions);
     }
+
+    function it_should_have_information_on_dimensions()
+    {
+        $dimensions = Dimensions::fromWidthAndHeight(350, 300);
+        $this->setDimensions($dimensions);
+
+        $info = $this->getInformation();
+
+        $info['dimensions']->shouldBe('350 x 300');
+    }
 }

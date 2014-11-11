@@ -35,7 +35,7 @@ abstract class Location
      */
     public function getInformation()
     {
-        return ['dimensions' => '', 'exits' => ''];
+        return ['dimensions' => (string)$this->getDimensions(), 'exits' => ''];
     }
 
     /**

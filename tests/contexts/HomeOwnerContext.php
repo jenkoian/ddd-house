@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
@@ -29,13 +30,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
      */
     public function iAmInThe($location)
     {
-        if (false !== strpos($location, 'garden')) {
-            $location = Room::named($location);
-        } else {
-            $location = Garden::named($location);
-        }
-
-        $this->house->setLocation($location);
+        $this->iEnterTheRoom($location);
     }
 
     /**
@@ -133,5 +128,25 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
         } catch (LocationDoesNotExistException $e) {
             return true;
         }
+    }
+
+    /**
+     * @Then I should have dimensions :dimensions
+     */
+    public function iShouldHaveDimensions($dimensions)
+    {
+        $information = $this->house->whereAmI()->getInformation();
+
+        PHPUnit_Framework_Assert::assertArrayHasKey('dimensions', $information);
+        PHPUnit_Framework_Assert::assertEquals($dimensions, $information['dimensions']);
+    }
+
+    /**
+     * @Then I should have exits
+     */
+    public function iShouldHaveExits()
+    {
+        $information = $this->house->whereAmI()->getInformation();
+        PHPUnit_Framework_Assert::assertArrayHasKey('exits', $information);
     }
 }
