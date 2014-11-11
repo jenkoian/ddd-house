@@ -3,6 +3,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Jenko\House\Dimensions;
 use Jenko\House\Garden;
 use Jenko\House\House;
 use Jenko\House\Room;
@@ -101,7 +102,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
             $locations[] = $location;
         }
 
-        $this->house = House::buildHouse($locations);
+        $this->house = House::build($locations);
     }
 
     /**
