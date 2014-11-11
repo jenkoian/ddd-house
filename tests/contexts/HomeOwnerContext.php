@@ -3,6 +3,9 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Jenko\House\Garden;
+use Jenko\House\House;
+use Jenko\House\Room;
 
 class HomeOwnerContext implements Context, SnippetAcceptingContext
 {
