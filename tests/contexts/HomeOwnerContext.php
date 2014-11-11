@@ -50,7 +50,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     public function iShouldBeInThe($location)
     {
         $whereAmI = $this->house->whereAmI();
-        PHPUnit_Framework_Assert::assertEquals(Room::named($location), $whereAmI);
+        PHPUnit_Framework_Assert::assertEquals($location, $whereAmI->getName());
     }
 
     /**
