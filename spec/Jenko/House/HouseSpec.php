@@ -37,4 +37,12 @@ class HouseSpec extends ObjectBehavior
         $house->shouldHaveType('Jenko\House\House');
         $house->getLocations()->shouldEqual($locations);
     }
+
+    function it_should_set_location()
+    {
+        $location = Room::named('garage');
+        $this->setLocation($location);
+
+        $this->whereAmI()->shouldBe($location);
+    }
 }
