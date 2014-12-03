@@ -48,4 +48,15 @@ class RoomSpec extends ObjectBehavior
 
         $info['dimensions']->shouldBe('350 x 300');
     }
+
+    function it_should_have_exits()
+    {
+        $exits = [self::named('kitchen'), self::named('living room')];
+        $this->setExits($exits);
+
+        $this->getExits()->shouldEqual($exits);
+
+        $info = $this->getInformation();
+        $info['exits']->shouldEqual($exits);
+    }
 }
