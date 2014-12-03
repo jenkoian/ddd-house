@@ -36,3 +36,14 @@ Feature: Home owner navigating the house
   Scenario: Entering a room that doesn't exist
     Given I am in the "hallway"
     Then I should not be able to enter the "made up" room
+
+  Scenario: Entering a new room holds information of your previous location
+    Given there are the following locations in the house
+      | name          | type   | width | height |
+      | front garden  | garden | 300   | 300    |
+      | hallway       | room   | 300   | 300    |
+      | living room   | room   | 300   | 300    |
+      | kitchen       | room   | 300   | 300    |
+    And I am in the "hallway"
+    When I enter the "living room" room
+    Then I should know that I came from the "hallway"

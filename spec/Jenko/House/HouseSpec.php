@@ -46,12 +46,13 @@ class HouseSpec extends ObjectBehavior
 
         $this->enterRoom('living room');
         $this->whereAmI()->getName()->shouldBe('living room');
+        $this->whereWasI()->getName()->shouldBe('kitchen');
     }
 
     function it_should_allow_exiting_rooms()
     {
         $this->enterRoom('hallway');
-        $this->exitRoom('front garden');
+        $this->exitToRoom('front garden');
     }
 
     function it_should_throw_exception_if_attempting_to_enter_invalid_room()

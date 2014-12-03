@@ -17,6 +17,11 @@ final class House
     private $currentLocation;
 
     /**
+     * @var Location
+     */
+    private $previousLocation;
+
+    /**
      * @param array $locations
      */
     private function __construct(array $locations)
@@ -50,6 +55,14 @@ final class House
     }
 
     /**
+     * @return Location
+     */
+    public function whereWasI()
+    {
+        return $this->previousLocation;
+    }
+
+    /**
      * @param Room|string $room
      * @throws LocationDoesNotExistException
      */
@@ -63,6 +76,7 @@ final class House
             throw new LocationDoesNotExistException;
         }
 
+        $this->previousLocation = $this->currentLocation;
         $this->currentLocation = $room;
     }
 
@@ -99,22 +113,9 @@ final class House
 
     /**
      * @param Location|string $room
-     * @throws LocationDoesNotExistException
      */
-    public function exitRoom($room)
+    public function exitToRoom($room)
     {
-        if (!$room instanceof Location && is_string($room)) {
-            if (false !== strpos($room, 'garden')) {
-                $room = Garden::named($room);
-            } else{
-                $room = Room::named($room);
-            }
-        }
-
-        if (!$this->containsLocation($room)) {
-            throw new LocationDoesNotExistException;
-        }
-
-        $this->currentLocation = $room;
+        $this->enterRoom($room);
     }
 }
