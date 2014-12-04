@@ -1,0 +1,11 @@
+jenko_house_outside:
+    path: /
+    defaults:  { _controller: jenko.house.controllers.outside:outsideAction }
+    requirements:
+        _method: GET
+
+jenko_house_enter_room:
+    path: /location/{location}
+    defaults:  { _controller: jenko.house.controllers.enter_room:enterAction }
+    requirements:
+        _method: GET

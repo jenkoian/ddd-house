@@ -2,7 +2,7 @@
 
 namespace Jenko\House\Command;
 
-final class EnterRoom
+final class EnterRoomCommand
 {
     public $room;
 }

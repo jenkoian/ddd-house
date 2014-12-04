@@ -16,8 +16,6 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Tabbi89\CommanderBundle\Tabbi89CommanderBundle(),
-
             // House Bundles
             new Jenko\HouseBundle\JenkoHouseBundle(),
         );

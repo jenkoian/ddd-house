@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab809a3f4851e68e0e41cc488d74c8d3",
+    "hash": "b07b9c817f34ed7159e9080bfc89da49",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1784,51 +1784,6 @@
             "time": "2014-09-28 17:33:53"
         },
         {
-            "name": "tabbi89/commander-bundle",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tabbi89/CommanderBundle.git",
-                "reference": "3b98f12e76a34b6c01201b526c6656ebb36094b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tabbi89/CommanderBundle/zipball/3b98f12e76a34b6c01201b526c6656ebb36094b0",
-                "reference": "3b98f12e76a34b6c01201b526c6656ebb36094b0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4",
-                "symfony/framework-bundle": "~2.3"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "~2.0",
-                "phpunit/phpunit": "~4.1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Tabbi89\\CommanderBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tabbi89",
-                    "email": "tom@tabbi89.com"
-                }
-            ],
-            "description": "Simple CommandBus implementation for Symfony2.",
-            "homepage": "http://tabbi89.com",
-            "keywords": [
-                "Symfony2 CommandBus"
-            ],
-            "time": "2014-09-03 13:21:12"
-        },
-        {
             "name": "twig/extensions",
             "version": "v1.1.0",
             "source": {
@@ -2675,6 +2630,51 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2014-09-22 14:56:14"
+        },
+        {
+            "name": "tabbi89/commander-bundle",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tabbi89/CommanderBundle.git",
+                "reference": "3b98f12e76a34b6c01201b526c6656ebb36094b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tabbi89/CommanderBundle/zipball/3b98f12e76a34b6c01201b526c6656ebb36094b0",
+                "reference": "3b98f12e76a34b6c01201b526c6656ebb36094b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/framework-bundle": "~2.3"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tabbi89\\CommanderBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tabbi89",
+                    "email": "tom@tabbi89.com"
+                }
+            ],
+            "description": "Simple CommandBus implementation for Symfony2.",
+            "homepage": "http://tabbi89.com",
+            "keywords": [
+                "Symfony2 CommandBus"
+            ],
+            "time": "2014-09-03 13:21:12"
         }
     ],
     "aliases": [],

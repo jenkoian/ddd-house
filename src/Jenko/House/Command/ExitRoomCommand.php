@@ -2,7 +2,7 @@
 
 namespace Jenko\House\Command;
 
-final class ExitRoom
+final class ExitRoomCommand
 {
     public $room;
 }

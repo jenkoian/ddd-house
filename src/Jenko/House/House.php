@@ -64,6 +64,7 @@ final class House
 
     /**
      * @param Room|string $room
+     * @return $this
      * @throws LocationDoesNotExistException
      */
     public function enterRoom($room)
@@ -78,6 +79,8 @@ final class House
 
         $this->previousLocation = $this->currentLocation;
         $this->currentLocation = $room;
+
+        return $this;
     }
 
     /**
@@ -113,9 +116,10 @@ final class House
 
     /**
      * @param Location|string $room
+     * @return House
      */
     public function exitToRoom($room)
     {
-        $this->enterRoom($room);
+        return $this->enterRoom($room);
     }
 }
