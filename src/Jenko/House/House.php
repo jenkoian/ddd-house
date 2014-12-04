@@ -39,7 +39,7 @@ final class House
     }
 
     /**
-     * @return array
+     * @return Location[]|array
      */
     public function getLocations()
     {
