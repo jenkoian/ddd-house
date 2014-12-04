@@ -5,7 +5,7 @@ namespace Jenko\House\Factory;
 use Jenko\House\House;
 use Jenko\House\Location;
 
-interface HouseFactory
+interface HouseFactoryInterface
 {
     /**
      * @param Location|string|null $currentLocation

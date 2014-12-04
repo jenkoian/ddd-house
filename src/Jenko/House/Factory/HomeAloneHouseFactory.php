@@ -11,7 +11,7 @@ use Jenko\House\Room;
  * Note: Usually you would have some kind of persistence mechanism. However, in our case a static factory (essentially
  * a singleton) is fine, as the house itself won't change.
  */
-final class HomeAloneHouseFactory implements HouseFactory
+final class HomeAloneHouseFactory implements HouseFactoryInterface
 {
     /**
      * @var House $house

@@ -2,10 +2,14 @@
 
 namespace Jenko\House;
 
+use Jenko\House\Event\EnteredRoomEvent;
+use Jenko\House\Event\EventGenerator;
 use Jenko\House\Exception\LocationDoesNotExistException;
 
 final class House
 {
+    use EventGenerator;
+
     /**
      * @var array
      */
@@ -79,6 +83,8 @@ final class House
 
         $this->previousLocation = $this->currentLocation;
         $this->currentLocation = $room;
+
+        $this->raiseEvent(new EnteredRoomEvent($this->currentLocation->getName()));
 
         return $this;
     }

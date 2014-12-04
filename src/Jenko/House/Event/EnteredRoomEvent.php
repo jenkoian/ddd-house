@@ -2,8 +2,12 @@
 
 namespace Jenko\House\Event;
 
-class EnteredRoomEvent
+use Jenko\House\Adapter\SymfonyEventAdapter;
+
+final class EnteredRoomEvent extends SymfonyEventAdapter
 {
+    const NAME = 'house.room-entered';
+
     public $roomName;
     public $enteredOn;
 

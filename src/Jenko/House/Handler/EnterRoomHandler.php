@@ -2,15 +2,26 @@
 
 namespace Jenko\House\Handler;
 
+use Jenko\House\Event\EventDispatcherInterface;
 use Jenko\House\Factory\HomeAloneHouseFactory;
+use Jenko\House\House;
 
-final class EnterRoomHandler
+final class EnterRoomHandler implements HandlerInterface
 {
+    /**
+     * @var House $house
+     */
     private $house;
 
-    public function __construct()
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->house = HomeAloneHouseFactory::getHouse();
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -19,6 +30,9 @@ final class EnterRoomHandler
      */
     public function handle($command)
     {
-        return $this->house->enterRoom($command->room);
+        $house = $this->house->enterRoom($command->room);
+        $this->dispatcher->dispatch($house->releaseEvents());
+
+        return $house;
     }
 }
