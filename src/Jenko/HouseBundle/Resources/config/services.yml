@@ -23,3 +23,15 @@ services:
         class: Jenko\House\Adapter\SymfonyEventDispatcherAdapter
         arguments:
             - @event_dispatcher
+
+    jenko.house.subscribers.enter_room_subscriber:
+        class: Jenko\House\Event\EnteredRoomSubscriber
+        arguments:
+            - @jenko.house.adapters.psr_logger
+        tags:
+            -  { name: kernel.event_subscriber }
+
+    jenko.house.adapters.psr_logger:
+        class: Jenko\House\Adapter\PsrLoggerAdapter
+        arguments:
+            - @logger
