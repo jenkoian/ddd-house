@@ -50,7 +50,7 @@ final class HomeAloneHouseFactory implements HouseFactoryInterface
         $kitchen->setDimensions(Dimensions::fromWidthAndHeight(400, 300));
         $kitchen->setExits([$hallway, $diningRoom]);
 
-        $kitchen->setDimensions(Dimensions::fromWidthAndHeight(300, 200));
+        $diningRoom->setDimensions(Dimensions::fromWidthAndHeight(300, 200));
         $diningRoom->setExits([$hallway, $kitchen, $livingRoom]);
 
         $bathroom->setDimensions(Dimensions::fromWidthAndHeight(400, 100));
