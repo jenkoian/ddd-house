@@ -1,12 +1,14 @@
 <?php
 
-namespace Jenko\House\Handler;
+namespace Jenko\HouseCommandHandling\Handler;
 
 use Jenko\House\Event\EventDispatcherInterface;
 use Jenko\House\Factory\HomeAloneHouseFactory;
 use Jenko\House\House;
+use SimpleBus\Command\Command;
+use SimpleBus\Command\Handler\CommandHandler;
 
-final class EnterRoomHandler implements HandlerInterface
+final class ExitRoomHandler implements CommandHandler
 {
     /**
      * @var House $house
@@ -18,9 +20,6 @@ final class EnterRoomHandler implements HandlerInterface
      */
     private $dispatcher;
 
-    /**
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->house = HomeAloneHouseFactory::getHouse();
@@ -31,9 +30,9 @@ final class EnterRoomHandler implements HandlerInterface
      * @param $command
      * @return mixed|void
      */
-    public function handle($command)
+    public function handle(Command $command)
     {
-        $house = $this->house->enterRoom($command->room);
+        $house = $this->house->exitToRoom($command->room);
         $this->dispatcher->dispatch($house->releaseEvents());
 
         return $house;

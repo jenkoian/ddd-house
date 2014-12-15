@@ -2,14 +2,15 @@
 
 namespace Jenko\HouseBundle\Controller;
 
-use Jenko\House\Command\EnterRoomCommand;
-use Jenko\House\Handler\HandlerInterface;
+use Jenko\House\Factory\HomeAloneHouseFactory;
 use Jenko\House\House;
+use Jenko\HouseCommandHandling\Command\EnterRoomCommand;
+use SimpleBus\Command\Bus\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnterRoomController
+final class EnterRoomController
 {
     /**
      * @var EngineInterface
@@ -17,17 +18,18 @@ class EnterRoomController
     private $templating;
 
     /**
-     * @var HandlerInterface $handler
+     * @var CommandBus $commandBus
      */
-    private $handler;
+    private $commandBus;
 
     /**
      * @param EngineInterface $templating
+     * @param CommandBus $commandBus
      */
-    public function __construct(EngineInterface $templating, HandlerInterface $handler)
+    public function __construct(EngineInterface $templating, CommandBus $commandBus)
     {
         $this->templating = $templating;
-        $this->handler = $handler;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -38,14 +40,15 @@ class EnterRoomController
     public function enterAction(Request $request)
     {
         $command = new EnterRoomCommand();
+        $command->house = HomeAloneHouseFactory::getHouse();
         $command->room = $request->get('location');
 
         /** @var House $house */
-        $house = $this->handler->handle($command);
+        $this->commandBus->handle($command);
 
         return $this->templating->renderResponse(
             'JenkoHouseBundle::room.html.twig',
-            ['currentRoom' => $house->whereAmI(), 'previousRoom' => $house->whereWasI()]
+            ['currentRoom' => $command->house->whereAmI(), 'previousRoom' => $command->house->whereWasI()]
         );
     }
 }
