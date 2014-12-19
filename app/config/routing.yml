@@ -1,2 +1,0 @@
-jenko_house:
-    resource: "@JenkoHouseBundle/Resources/config/routing.yml"
