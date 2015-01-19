@@ -5,15 +5,7 @@ default:
             contexts:
                 - HomeOwnerContext
             filters:
-                tags: "@home-owner"
-        potential-buyer:
-            contexts:
-                - HomeOwnerContext
-            filters:
-                tags: "@potential-buyer"
+                tags: "@home-owner && @potential-buyer"
 #        home-owner-ui:
-#            contexts:
-#                - WebHomeOwnerContext
-#        potential-buyer-ui:
 #            contexts:
 #                - WebHomeOwnerContext
