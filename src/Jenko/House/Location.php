@@ -15,6 +15,11 @@ abstract class Location
     private $dimensions;
 
     /**
+     * @var Location[]|array
+     */
+    private $exits;
+
+    /**
      * @param string $name
      */
     protected function __construct($name)
@@ -35,7 +40,7 @@ abstract class Location
      */
     public function getInformation()
     {
-        return ['dimensions' => (string)$this->getDimensions(), 'exits' => ''];
+        return ['dimensions' => (string)$this->getDimensions(), 'exits' => $this->getExits()];
     }
 
     /**
@@ -52,5 +57,21 @@ abstract class Location
     public function getDimensions()
     {
         return $this->dimensions;
+    }
+
+    /**
+     * @param array $exits
+     */
+    public function setExits(array $exits)
+    {
+        $this->exits = $exits;
+    }
+
+    /**
+     * @return array|Location[]
+     */
+    public function getExits()
+    {
+        return $this->exits;
     }
 }
