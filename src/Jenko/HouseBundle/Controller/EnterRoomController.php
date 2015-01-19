@@ -3,7 +3,7 @@
 namespace Jenko\HouseBundle\Controller;
 
 use Jenko\House\Command\EnterRoomCommand;
-use Jenko\House\Handler\EnterRoomHandler;
+use Jenko\House\Handler\HandlerInterface;
 use Jenko\House\House;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +17,17 @@ class EnterRoomController
     private $templating;
 
     /**
+     * @var HandlerInterface $handler
+     */
+    private $handler;
+
+    /**
      * @param EngineInterface $templating
      */
-    public function __construct(EngineInterface $templating)
+    public function __construct(EngineInterface $templating, HandlerInterface $handler)
     {
         $this->templating = $templating;
+        $this->handler = $handler;
     }
 
     /**
@@ -34,9 +40,8 @@ class EnterRoomController
         $command = new EnterRoomCommand();
         $command->room = $request->get('location');
 
-        $handler = new EnterRoomHandler();
         /** @var House $house */
-        $house = $handler->handle($command);
+        $house = $this->handler->handle($command);
 
         return $this->templating->renderResponse(
             'JenkoHouseBundle::room.html.twig',
