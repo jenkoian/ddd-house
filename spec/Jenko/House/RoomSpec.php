@@ -16,6 +16,7 @@ class RoomSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Jenko\House\Room');
+        $this->shouldHaveType('Jenko\House\Location');
     }
 
     function it_should_be_created_with_a_name()
@@ -36,5 +37,15 @@ class RoomSpec extends ObjectBehavior
         $this->setDimensions($dimensions);
 
         $this->getDimensions()->shouldEqual($dimensions);
+    }
+
+    function it_should_have_information_on_dimensions()
+    {
+        $dimensions = Dimensions::fromWidthAndHeight(350, 300);
+        $this->setDimensions($dimensions);
+
+        $info = $this->getInformation();
+
+        $info['dimensions']->shouldBe('350 x 300');
     }
 }
