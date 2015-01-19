@@ -38,14 +38,6 @@ class HouseSpec extends ObjectBehavior
         $house->getLocations()->shouldEqual($locations);
     }
 
-    function it_should_set_location()
-    {
-        $location = Room::named('living room');
-        $this->setLocation($location);
-
-        $this->whereAmI()->shouldBe($location);
-    }
-
     function it_should_allow_entering_rooms()
     {
         $room = Room::named('kitchen');

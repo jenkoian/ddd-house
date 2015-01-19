@@ -42,17 +42,6 @@ final class House
     }
 
     /**
-     * @param Location $location
-     * @return $this
-     */
-    public function setLocation(Location $location)
-    {
-        $this->currentLocation = $location;
-
-        return $this;
-    }
-
-    /**
      * @return Location
      */
     public function whereAmI()
