@@ -18,6 +18,9 @@ final class EnterRoomHandler implements HandlerInterface
      */
     private $dispatcher;
 
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->house = HomeAloneHouseFactory::getHouse();
