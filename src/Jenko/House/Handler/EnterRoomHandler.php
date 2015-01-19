@@ -19,6 +19,6 @@ final class EnterRoomHandler
      */
     public function handle($command)
     {
-        $this->house->enterRoom($command->room);
+        return $this->house->enterRoom($command->room);
     }
 }

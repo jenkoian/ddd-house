@@ -19,6 +19,6 @@ final class ExitRoomHandler
      */
     public function handle($command)
     {
-        $this->house->exitToRoom($command->room);
+        return $this->house->exitToRoom($command->room);
     }
 }

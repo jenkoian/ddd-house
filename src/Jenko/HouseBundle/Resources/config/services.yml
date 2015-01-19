@@ -1,0 +1,14 @@
+parameters:
+    jenko.house.controllers.outside.class: Jenko\HouseBundle\Controller\OutsideController
+    jenko.house.controllers.enter_room.class: Jenko\HouseBundle\Controller\EnterRoomController
+
+services:
+    jenko.house.controllers.outside:
+        class: %jenko.house.controllers.outside.class%
+        arguments:
+            - @templating
+
+    jenko.house.controllers.enter_room:
+        class: %jenko.house.controllers.enter_room.class%
+        arguments:
+            - @templating
