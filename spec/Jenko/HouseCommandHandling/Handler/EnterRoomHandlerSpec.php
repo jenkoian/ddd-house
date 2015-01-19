@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Jenko\House\Handler;
+namespace spec\Jenko\HouseCommandHandlingHandler;
 
-use Jenko\House\Command\EnterRoomCommand;
 use Jenko\House\Event\EventDispatcherInterface;
 use Jenko\House\Factory\HomeAloneHouseFactory;
+use Jenko\HouseCommandHandling\Command\EnterRoomCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,7 +17,7 @@ class EnterRoomHandlerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Jenko\House\Handler\EnterRoomHandler');
+        $this->shouldHaveType('Jenko\HouseCommandHandling\Handler\EnterRoomHandler');
     }
 
     function it_dispatches_events(EventDispatcherInterface $dispatcher)

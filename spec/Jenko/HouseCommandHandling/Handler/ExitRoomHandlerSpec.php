@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Jenko\House\Handler;
+namespace spec\Jenko\HouseCommandHandling\Handler;
 
-use Jenko\House\Command\ExitRoomCommand;
+use Jenko\HouseCommandHandling\Command\ExitRoomCommand;
 use Jenko\House\Event\EventDispatcherInterface;
 use Jenko\House\Factory\HomeAloneHouseFactory;
 use PhpSpec\ObjectBehavior;
@@ -17,7 +17,7 @@ class ExitRoomHandlerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Jenko\House\Handler\ExitRoomHandler');
+        $this->shouldHaveType('Jenko\HouseCommandHandling\Handler\ExitRoomHandler');
     }
 
     function it_dispatches_events(EventDispatcherInterface $dispatcher)

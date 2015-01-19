@@ -12,12 +12,14 @@ services:
         class: %jenko.house.controllers.enter_room.class%
         arguments:
             - @templating
-            - @jenko.house.handlers.enter_room_handler
+            - @command_bus
 
     jenko.house.handlers.enter_room_handler:
-        class: Jenko\House\Handler\EnterRoomHandler
+        class: Jenko\HouseCommandHandling\Handler\EnterRoomHandler
         arguments:
             - @jenko.house.adapters.symfony_event_dispatcher
+        tags:
+            - { name: command_handler, handles: enter-room }
 
     jenko.house.adapters.symfony_event_dispatcher:
         class: Jenko\House\Adapter\SymfonyEventDispatcherAdapter
@@ -35,4 +37,3 @@ services:
         class: Jenko\House\Adapter\PsrLoggerAdapter
         arguments:
             - @logger
-            

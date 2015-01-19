@@ -2,10 +2,10 @@
 
 namespace Jenko\HouseBundle\Command;
 
-use Jenko\House\Command\EnterRoomCommand;
 use Jenko\House\Factory\HomeAloneHouseFactory;
-use Jenko\House\Handler\EnterRoomHandler;
 use Jenko\House\House;
+use Jenko\HouseCommandHandling\Command\EnterRoomCommand;
+use SimpleBus\Command\Bus\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,9 +21,9 @@ class NavigateHouseCommand extends ContainerAwareCommand
     private $house;
 
     /**
-     * @var EnterRoomHandler $enterRoomHandler
+     * @var CommandBus $commandBus
      */
-    private $enterRoomHandler;
+    private $commandBus;
 
     public function __construct()
     {
@@ -48,7 +48,7 @@ class NavigateHouseCommand extends ContainerAwareCommand
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->enterRoomHandler = $this->getContainer()->get('jenko.house.handlers.enter_room_handler');
+        $this->commandBus = $this->getContainer()->get('command_bus');
     }
 
     /**
@@ -59,6 +59,7 @@ class NavigateHouseCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $house = $this->house;
         $room = $input->getOption('location');
 
         if (null === $room) {
@@ -66,9 +67,10 @@ class NavigateHouseCommand extends ContainerAwareCommand
         }
 
         $command = new EnterRoomCommand();
+        $command->house = $house;
         $command->room = $room;
 
-        $house = $this->enterRoomHandler->handle($command);
+        $this->commandBus->handle($command);
 
         $output->writeln('You are in: ' . $room);
 
