@@ -74,7 +74,7 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     public function iLeaveThroughTheFrontDoor()
     {
         $frontGarden = Garden::named('front garden');
-        $this->house->exitRoom($frontGarden);
+        $this->house->exitToRoom($frontGarden);
     }
 
     /**
@@ -148,5 +148,13 @@ class HomeOwnerContext implements Context, SnippetAcceptingContext
     {
         $information = $this->house->whereAmI()->getInformation();
         PHPUnit_Framework_Assert::assertArrayHasKey('exits', $information);
+    }
+
+    /**
+     * @Then I should know that I came from the :roomName
+     */
+    public function iShouldKnowThatICameFromThe($roomName)
+    {
+        PHPUnit_Framework_Assert::assertEquals($this->house->whereWasI()->getName(), $roomName);
     }
 }
