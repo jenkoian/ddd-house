@@ -10,6 +10,11 @@ abstract class Location
     private $name;
 
     /**
+     * @var Dimensions
+     */
+    private $dimensions;
+
+    /**
      * @param string $name
      */
     protected function __construct($name)
@@ -25,8 +30,27 @@ abstract class Location
         return $this->name;
     }
 
+    /**
+     * @return array
+     */
     public function getInformation()
     {
         return ['dimensions' => '', 'exits' => ''];
+    }
+
+    /**
+     * @param Dimensions $dimensions
+     */
+    public function setDimensions(Dimensions $dimensions)
+    {
+        $this->dimensions = $dimensions;
+    }
+
+    /**
+     * @return Dimensions
+     */
+    public function getDimensions()
+    {
+        return $this->dimensions;
     }
 }
