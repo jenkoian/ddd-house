@@ -56,7 +56,7 @@ As mentioned the blog post by Everzet on ['Modelling by example'](http://everzet
 
 Other sources of inspiration include:
 
-* This excellent talk by Ross Tuck: [Models and Service Layers](https://www.youtube.com/watch?v=3uV3ngl1Z8g)
+* This excellent talk by Ross Tuck: [Models and Service Layers](https://www.youtube.com/watch?v=ajhqScWECMo)
 
 TODO
 ----
