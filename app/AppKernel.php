@@ -35,4 +35,18 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    /**
+     * Workaround for heroku deployment, see: http://stackoverflow.com/a/27219194/380054
+     * 
+     * @return mixed|string
+     */
+    public function getRootDir()
+    {
+        if (isset($_ENV['SYMFONY_ENV']) && $_ENV['SYMFONY_ENV'] == 'prod') {
+            // Workaround to avoid problem with the slug of heroku
+            return '/app/app';
+        }
+        return parent::getRootDir();
+    }
 }
