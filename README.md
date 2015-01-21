@@ -54,6 +54,13 @@ Demo app
 
 The demo app is viewable at [https://dddhouse.herokuapp.com/](https://dddhouse.herokuapp.com/)
 
+CLI app
+-------
+
+A gif of the CLI version in action:
+
+![](dddhouse-cli.gif)
+
 Inspiration
 -----------
 
