@@ -49,6 +49,11 @@ View each branch along with the notes in the commit message to see what each com
 * [Version24](https://bitbucket.org/jenko/ddd-house/commits/4fdc5ed94368ef1656ea80e6fde634a58020cc04?at=version24)
 * [Version25](https://bitbucket.org/jenko/ddd-house/commits/a9ca03a9d882cf03d1e8ca48f17f9780a62ec1f5?at=version25)
 
+Demo app
+--------
+
+The demo app is viewable at [https://dddhouse.herokuapp.com/](https://dddhouse.herokuapp.com/)
+
 Inspiration
 -----------
 
